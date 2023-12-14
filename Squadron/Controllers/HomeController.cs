@@ -12,11 +12,11 @@ namespace Squadron.Controllers
         {
             _logger = logger;
         }
-    public async IActionResult Index()
+        public IActionResult Index()
         {
-            return View(await _context.Jet
+            return View();
         }
-    public IActionResult ShowSearchForm()
+        public IActionResult ShowSearchForm()
         {
             return View();
         }
