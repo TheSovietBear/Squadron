@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Squadron.Models.JetPlane>
+
+@{
+    ViewData["Title"] = "Jet Plane List";
+}
+
+<h2>Jet Plane List</h2>
+
+<div>
+    <h3>Categories</h3>
+    <div>
+        <a asp-action="Fighters">Fighters</a> |
+        <a asp-action="Attackers">Attackers</a> |
+        <a asp-action="Bombers">Bombers</a>
+    </div>
+</div>
+
+<div>
+    <h3>All Jet Planes</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Condition</th>
+                <th>Year</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var plane in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@plane.Id" data-toggle="modal" data-target="#planeDetails">@plane.Model</a>
+                    </td>
+                    <td>@plane.Condition</td>
+                    <td>@plane.Year</td>
+                    <td>@plane.Price</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@plane.Id" data-toggle="modal" data-target="#editPlane">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@plane.Id" data-toggle="modal" data-target="#deletePlane">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Squadron.Data;
 using Squadron.Models;
@@ -45,7 +44,34 @@ namespace Squadron.Controllers
             return View("JetPlaneList", bomberPlanes);
         }
 
-        // Existing actions...
+        // GET: JetPlanes/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: JetPlanes/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Model,Category,Year,Price")] JetPlane jetPlane)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _context.Add(jetPlane);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Planes)); // Redirect to the list of planes or your desired action
+                }
+            }
+            catch (DbUpdateException)
+            {
+                // Log the error or handle it as needed
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+
+            return View(jetPlane);
+        }
 
         private bool JetPlaneExists(int id)
         {
@@ -53,4 +79,5 @@ namespace Squadron.Controllers
         }
     }
 }
+
 

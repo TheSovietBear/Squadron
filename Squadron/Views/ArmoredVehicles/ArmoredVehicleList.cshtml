@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Squadron.Models.ArmoredVehicle>
+
+@{
+    ViewData["Title"] = "Armored Vehicle List";
+}
+
+<h2>Armored Vehicle List</h2>
+
+<div>
+    <h3>Categories</h3>
+    <div>
+        <a asp-action="Tanks">Tanks</a> |
+        <a asp-action="APCs">APCs</a> |
+        <a asp-action="IFVs">IFVs</a>
+    </div>
+</div>
+
+<div>
+    <h3>All Armored Vehicles</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Condition</th>
+                <th>Year</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vehicle in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@vehicle.Id" data-toggle="modal" data-target="#vehicleDetails">@vehicle.Model</a>
+                    </td>
+                    <td>@vehicle.Condition</td>
+                    <td>@vehicle.Year</td>
+                    <td>@vehicle.Price</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@vehicle.Id" data-toggle="modal" data-target="#editVehicle">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@vehicle.Id" data-toggle="modal" data-target="#deleteVehicle">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

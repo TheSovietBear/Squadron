@@ -13,6 +13,7 @@ using Squadron.Models;
 
 namespace Squadron.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ArmoredVehiclesController : Controller
     {
         private readonly ApplicationDbContext _context;
