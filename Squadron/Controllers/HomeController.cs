@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Squadron.Models;
 using System.Diagnostics;
 
 namespace Squadron.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -20,8 +22,11 @@ namespace Squadron.Controllers
         {
             return View();
         }
-        public IActionResult ShowSearchResults(string SearchPhrase)
+
+        public IActionResult ShowSearchResults(string searchPhrase)
         {
+          
+            ViewBag.SearchPhrase = searchPhrase;
             return View();
         }
 
@@ -32,4 +37,3 @@ namespace Squadron.Controllers
         }
     }
 }
-

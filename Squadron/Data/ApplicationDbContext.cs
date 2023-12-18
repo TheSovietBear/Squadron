@@ -10,7 +10,12 @@ namespace Squadron.Data
             : base(options)
         {
         }
-        public DbSet<Squadron.Models.ArmoredVehicle> ArmoredVehicle { get; set; } = default!;
-        public DbSet<Squadron.Models.JetPlane> JetPlane { get; set; } = default!;
+
+        public DbSet<ArmoredVehicle> ArmoredVehicle { get; set; } = default!;
+        public DbSet<JetPlane> JetPlane { get; set; } = default!;
     }
 }
+
+ 
+
+

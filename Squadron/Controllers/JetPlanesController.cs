@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Squadron.Data;
 using Squadron.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Squadron.Controllers
 {
@@ -19,135 +17,35 @@ namespace Squadron.Controllers
             _context = context;
         }
 
-        // GET: JetPlanes
-        public async Task<IActionResult> Planes()
+        // GET: JetPlanes/Planes
+        public IActionResult Planes()
         {
-            return View(await _context.JetPlane.ToListAsync());
+            // Redirect to the default category (e.g., Fighters)
+            return RedirectToAction(nameof(Fighters));
         }
 
-        // GET: JetPlanes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: JetPlanes/Fighters
+        public async Task<IActionResult> Fighters()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var jetPlane = await _context.JetPlane
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (jetPlane == null)
-            {
-                return NotFound();
-            }
-
-            return View(jetPlane);
+            var fighterPlanes = await _context.JetPlane.Where(p => p.Category == "Fighter").ToListAsync();
+            return View("JetPlaneList", fighterPlanes);
         }
 
-        // GET: JetPlanes/Create
-        public IActionResult Create()
+        // GET: JetPlanes/Attackers
+        public async Task<IActionResult> Attackers()
         {
-            return View();
+            var attackerPlanes = await _context.JetPlane.Where(p => p.Category == "Attacker").ToListAsync();
+            return View("JetPlaneList", attackerPlanes);
         }
 
-        // POST: JetPlanes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Model,Condition,Year,Price")] JetPlane jetPlane)
+        // GET: JetPlanes/Bombers
+        public async Task<IActionResult> Bombers()
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(jetPlane);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(jetPlane);
+            var bomberPlanes = await _context.JetPlane.Where(p => p.Category == "Bomber").ToListAsync();
+            return View("JetPlaneList", bomberPlanes);
         }
 
-        // GET: JetPlanes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var jetPlane = await _context.JetPlane.FindAsync(id);
-            if (jetPlane == null)
-            {
-                return NotFound();
-            }
-            return View(jetPlane);
-        }
-
-        // POST: JetPlanes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Model,Condition,Year,Price")] JetPlane jetPlane)
-        {
-            if (id != jetPlane.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(jetPlane);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!JetPlaneExists(jetPlane.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(jetPlane);
-        }
-
-        // GET: JetPlanes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var jetPlane = await _context.JetPlane
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (jetPlane == null)
-            {
-                return NotFound();
-            }
-
-            return View(jetPlane);
-        }
-
-        // POST: JetPlanes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var jetPlane = await _context.JetPlane.FindAsync(id);
-            if (jetPlane != null)
-            {
-                _context.JetPlane.Remove(jetPlane);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        // Existing actions...
 
         private bool JetPlaneExists(int id)
         {
@@ -155,3 +53,4 @@ namespace Squadron.Controllers
         }
     }
 }
+

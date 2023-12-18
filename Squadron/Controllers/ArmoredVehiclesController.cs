@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Squadron.Data;
 using Squadron.Models;
@@ -19,8 +22,26 @@ namespace Squadron.Controllers
             _context = context;
         }
 
-        // GET: ArmoredVehicles
+        // GET: ArmoredVehicles/Tanks
         public async Task<IActionResult> Tanks()
+        {
+            return View("ArmoredVehicleList", await _context.ArmoredVehicle.Where(v => v.Category == "Tank").ToListAsync());
+        }
+
+        // GET: ArmoredVehicles/APCs
+        public async Task<IActionResult> APCs()
+        {
+            return View("ArmoredVehicleList", await _context.ArmoredVehicle.Where(v => v.Category == "APC").ToListAsync());
+        }
+
+        // GET: ArmoredVehicles/IFVs
+        public async Task<IActionResult> IFVs()
+        {
+            return View("ArmoredVehicleList", await _context.ArmoredVehicle.Where(v => v.Category == "IFV").ToListAsync());
+        }
+
+        // GET: ArmoredVehicles
+        public async Task<IActionResult> Index()
         {
             return View(await _context.ArmoredVehicle.ToListAsync());
         }
@@ -50,11 +71,9 @@ namespace Squadron.Controllers
         }
 
         // POST: ArmoredVehicles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Model,Condition,Year,Price")] ArmoredVehicle armoredVehicle)
+        public async Task<IActionResult> Create([Bind("Id,Model,Condition,Year,Price,Category")] ArmoredVehicle armoredVehicle)
         {
             if (ModelState.IsValid)
             {
@@ -82,11 +101,9 @@ namespace Squadron.Controllers
         }
 
         // POST: ArmoredVehicles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Model,Condition,Year,Price")] ArmoredVehicle armoredVehicle)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Model,Condition,Year,Price,Category")] ArmoredVehicle armoredVehicle)
         {
             if (id != armoredVehicle.Id)
             {

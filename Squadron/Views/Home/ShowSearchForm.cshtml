@@ -1,23 +1,7 @@
 ﻿<h4>Search any kind of vehicle you need</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="ShowSearchResults">         
-
-            <div class="form-group">
-                <label for="SearchPhrase" class="control-label"></label>
-                <input name="SearchPhrase" class="form-control" />           
-            </div>
-
-
-            <div class="form-group">
-                <input type="submit" value="Search" class="btn btn-primary" />
-            </div> 
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+<form asp-action="ShowSearchResults" method="get">
+    <label for="searchPhrase">Search:</label>
+    <input type="text" name="searchPhrase" />
+    <button type="submit">Search</button>
+</form>

@@ -250,7 +250,7 @@ namespace Squadron.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ArmoredVehicle");
+                    b.ToTable("ArmoredVehicle", (string)null);
                 });
 
             modelBuilder.Entity("Squadron.Models.JetPlane", b =>
@@ -279,7 +279,7 @@ namespace Squadron.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JetPlane");
+                    b.ToTable("JetPlane", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
