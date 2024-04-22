@@ -38,13 +38,18 @@
                     <td>@vehicle.Year</td>
                     <td>@vehicle.Price</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@vehicle.Id" data-toggle="modal" data-target="#editVehicle">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@vehicle.Id" data-toggle="modal" data-target="#deleteVehicle">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@vehicle.Id" class="btn btn-primary">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@vehicle.Id" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+<div>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</div>
+
 
 

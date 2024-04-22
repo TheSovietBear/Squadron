@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Squadron.Data;
@@ -13,7 +9,6 @@ using Squadron.Models;
 
 namespace Squadron.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class ArmoredVehiclesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -55,8 +50,7 @@ namespace Squadron.Controllers
                 return NotFound();
             }
 
-            var armoredVehicle = await _context.ArmoredVehicle
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var armoredVehicle = await _context.ArmoredVehicle.FirstOrDefaultAsync(m => m.Id == id);
             if (armoredVehicle == null)
             {
                 return NotFound();
@@ -80,10 +74,12 @@ namespace Squadron.Controllers
             {
                 _context.Add(armoredVehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Redirect to the ArmoredVehicleList action after successfully creating the item
+                return RedirectToAction(nameof(ArmoredVehicleList));
             }
             return View(armoredVehicle);
         }
+
 
         // GET: ArmoredVehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -142,8 +138,7 @@ namespace Squadron.Controllers
                 return NotFound();
             }
 
-            var armoredVehicle = await _context.ArmoredVehicle
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var armoredVehicle = await _context.ArmoredVehicle.FirstOrDefaultAsync(m => m.Id == id);
             if (armoredVehicle == null)
             {
                 return NotFound();
@@ -170,6 +165,12 @@ namespace Squadron.Controllers
         private bool ArmoredVehicleExists(int id)
         {
             return _context.ArmoredVehicle.Any(e => e.Id == id);
+        }
+
+        // GET: ArmoredVehicles/ArmoredVehicleList
+        public async Task<IActionResult> ArmoredVehicleList()
+        {
+            return View(await _context.ArmoredVehicle.ToListAsync());
         }
     }
 }
