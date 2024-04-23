@@ -68,7 +68,7 @@ namespace Squadron.Controllers
         // POST: ArmoredVehicles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Model,Condition,Year,Price,Category")] ArmoredVehicle armoredVehicle)
+        public async Task<IActionResult> Create([Bind("Id,Model,Condition,Year,Price,Category,Description,PictureUrl")] ArmoredVehicle armoredVehicle)
         {
             if (ModelState.IsValid)
             {
