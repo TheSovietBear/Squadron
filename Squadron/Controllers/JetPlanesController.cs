@@ -179,5 +179,3 @@ namespace Squadron.Controllers
         }
     }
 }
-
-
