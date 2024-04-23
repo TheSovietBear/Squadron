@@ -102,7 +102,7 @@ namespace Squadron.Controllers
         // POST: ArmoredVehicles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Model,Condition,Year,Price,Category,PictureUrl,Description")] ArmoredVehicle armoredVehicle)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Model,Condition,Year,Price,Category,Picture,Description")] ArmoredVehicle armoredVehicle)
         {
             if (id != armoredVehicle.Id)
             {

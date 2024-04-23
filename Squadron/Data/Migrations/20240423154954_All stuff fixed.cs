@@ -4,8 +4,10 @@
 
 namespace Squadron.Data.Migrations
 {
-    public partial class Squadron : Migration
+    /// <inheritdoc />
+    public partial class Allstufffixed : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -17,7 +19,10 @@ namespace Squadron.Data.Migrations
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Condition = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Category = table.Column<int>(type: "int", nullable: false),
+                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,7 +38,10 @@ namespace Squadron.Data.Migrations
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Condition = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Price = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Category = table.Column<int>(type: "int", nullable: false),
+                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,6 +49,7 @@ namespace Squadron.Data.Migrations
                 });
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -51,5 +60,3 @@ namespace Squadron.Data.Migrations
         }
     }
 }
-
-

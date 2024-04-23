@@ -247,7 +247,7 @@ namespace Squadron.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PictureUrl")
+                    b.Property<string>("Picture")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -259,7 +259,7 @@ namespace Squadron.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ArmoredVehicle", (string)null);
+                    b.ToTable("ArmoredVehicle");
                 });
 
             modelBuilder.Entity("Squadron.Models.JetPlane", b =>
@@ -277,7 +277,15 @@ namespace Squadron.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Picture")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -290,7 +298,7 @@ namespace Squadron.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JetPlane", (string)null);
+                    b.ToTable("JetPlane");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

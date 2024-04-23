@@ -53,7 +53,7 @@ namespace Squadron.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Model,Category,Condition,Year,Price")] JetPlane jetPlane)
+        public async Task<IActionResult> Create([Bind("Model,Condition,Year,Price,Category,Description,Picture")] JetPlane jetPlane)
         {
             try
             {
