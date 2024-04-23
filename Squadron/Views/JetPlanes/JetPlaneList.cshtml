@@ -38,13 +38,22 @@
                     <td>@plane.Year</td>
                     <td>@plane.Price</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@plane.Id" data-toggle="modal" data-target="#editPlane">Edit</a> |
+                        @if (this.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                        <a asp-action="Edit" asp-route-id="@plane.Id" data-toggle="modal" data-target="#editPlane">Edit</a> 
                         <a asp-action="Delete" asp-route-id="@plane.Id" data-toggle="modal" data-target="#deletePlane">Delete</a>
+                        }
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <div>
+        @if (this.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn btn-success">Create New</a>
+        }
+    </div>
 </div>
 
 

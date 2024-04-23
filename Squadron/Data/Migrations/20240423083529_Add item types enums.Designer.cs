@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Squadron.Data;
 
@@ -11,9 +12,11 @@ using Squadron.Data;
 namespace Squadron.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240423083529_Add item types enums")]
+    partial class Additemtypesenums
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,7 +262,7 @@ namespace Squadron.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ArmoredVehicle", (string)null);
+                    b.ToTable("ArmoredVehicle");
                 });
 
             modelBuilder.Entity("Squadron.Models.JetPlane", b =>
@@ -270,8 +273,9 @@ namespace Squadron.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Condition")
                         .IsRequired()
@@ -290,7 +294,7 @@ namespace Squadron.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JetPlane", (string)null);
+                    b.ToTable("JetPlane");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -1,6 +1,4 @@
-﻿using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
-namespace Squadron.Models
+﻿namespace Squadron.Models
 {
     public class JetPlane
     {
@@ -9,7 +7,7 @@ namespace Squadron.Models
         public string Condition { get; set; }
         public int Year { get; set; }
         public string Price { get; set; }
-        public string Category { get; set; } 
+        public JetPlaneType Category { get; set; }
 
         public JetPlane()
         {

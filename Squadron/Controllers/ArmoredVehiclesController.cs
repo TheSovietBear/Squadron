@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Squadron.Data;
 using Squadron.Models;
@@ -21,19 +17,25 @@ namespace Squadron.Controllers
         // GET: ArmoredVehicles/Tanks
         public async Task<IActionResult> Tanks()
         {
-            return View("ArmoredVehicleList", await _context.ArmoredVehicle.Where(v => v.Category == "Tank").ToListAsync());
+            var items = await _context.ArmoredVehicle.Where(v => v.Category == ArmoredVehicleType.Tank).ToListAsync();
+
+            return View("ArmoredVehicleList", items);
         }
 
         // GET: ArmoredVehicles/APCs
         public async Task<IActionResult> APCs()
         {
-            return View("ArmoredVehicleList", await _context.ArmoredVehicle.Where(v => v.Category == "APC").ToListAsync());
+            var items = await _context.ArmoredVehicle.Where(v => v.Category == ArmoredVehicleType.APC).ToListAsync();
+
+            return View("ArmoredVehicleList", items);
         }
 
         // GET: ArmoredVehicles/IFVs
         public async Task<IActionResult> IFVs()
         {
-            return View("ArmoredVehicleList", await _context.ArmoredVehicle.Where(v => v.Category == "IFV").ToListAsync());
+            var items = await _context.ArmoredVehicle.Where(v => v.Category == ArmoredVehicleType.IFV).ToListAsync();
+
+            return View("ArmoredVehicleList", items);
         }
 
         // GET: ArmoredVehicles
@@ -100,7 +102,7 @@ namespace Squadron.Controllers
         // POST: ArmoredVehicles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Model,Condition,Year,Price,Category")] ArmoredVehicle armoredVehicle)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Model,Condition,Year,Price,Category,PictureUrl,Description")] ArmoredVehicle armoredVehicle)
         {
             if (id != armoredVehicle.Id)
             {
@@ -125,7 +127,7 @@ namespace Squadron.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Tanks));
             }
             return View(armoredVehicle);
         }
@@ -159,7 +161,7 @@ namespace Squadron.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Tanks));
         }
 
         private bool ArmoredVehicleExists(int id)

@@ -7,7 +7,7 @@
         public string Condition { get; set; }
         public int Year { get; set; }
         public decimal Price { get; set; }
-        public string Category { get; set; }
+        public ArmoredVehicleType Category { get; set; }
         public string PictureUrl { get; set; }
         public string Description { get; set; }
 

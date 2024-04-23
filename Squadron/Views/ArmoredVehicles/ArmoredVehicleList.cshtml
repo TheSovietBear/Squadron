@@ -38,8 +38,11 @@
                     <td>@vehicle.Year</td>
                     <td>@vehicle.Price</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@vehicle.Id" class="btn btn-primary">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@vehicle.Id" class="btn btn-danger">Delete</a>
+                        @if (this.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@vehicle.Id" class="btn btn-primary">Edit</a> 
+                            <a asp-action="Delete" asp-route-id="@vehicle.Id" class="btn btn-danger">Delete</a>
+                        }
                     </td>
                 </tr>
             }
@@ -48,7 +51,10 @@
 </div>
 
 <div>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
+    @if (this.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <a asp-action="Create" class="btn btn-success">Create New</a>
+    }
 </div>
 
 

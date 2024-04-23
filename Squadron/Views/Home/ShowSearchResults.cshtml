@@ -1,2 +1,42 @@
-﻿<h2>Search Results</h2>
+﻿@model IEnumerable<Squadron.Models.JetPlane>
+@{
+    ViewData["Title"] = "Search results for jet planes";
+}
+
+<h2>Search Results</h2>
 <p>You searched for: <strong>@ViewBag.SearchPhrase</strong></p>
+
+<div>
+    <h3>All Jet Planes</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Condition</th>
+                <th>Year</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var plane in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@plane.Id" data-toggle="modal" data-target="#planeDetails">@plane.Model</a>
+                    </td>
+                    <td>@plane.Condition</td>
+                    <td>@plane.Year</td>
+                    <td>@plane.Price</td>
+                    <td>
+                        @if (this.User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Edit" asp-controller="JetPlanes" asp-route-id="@plane.Id" data-toggle="modal" data-target="#editPlane">Edit</a> 
+                            <a asp-action="Delete" asp-controller="JetPlanes" asp-route-id="@plane.Id" data-toggle="modal" data-target="#deletePlane">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
